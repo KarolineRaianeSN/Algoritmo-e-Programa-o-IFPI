@@ -11,7 +11,7 @@ import os
 
 def main():
 
-    arquivo = "words.txt"
+    arquivo = "/home/karoline/Documents/IFPI/Algoritmo-e-Programa-o-IFPI/Exercicios/Sala/wordplay/words.txt"
     linhas = carregar_linhas(arquivo)
     opcao = input(menu())
 
@@ -66,12 +66,8 @@ def listar_palavras_sem_e(palavras):
     return lista
 
 
-def has_no_e(palavras):
-    for palavra in palavras:
-        if 'e' not in palavra:
-            return True
-        else:
-            return False
+def has_no_e(palavra):
+    return 'e' not in palavra
 
 
 def mais_20_letras(palavras):
@@ -86,11 +82,8 @@ def mais_20_letras(palavras):
 def carregar_linhas(arquivo):
     linhas = []
     with open(arquivo, "r") as arquivo:
-        for linha in arquivo:
-            for palavra in arquivo.readlines():
-                linhas.append(palavra)
-
-
+        for palavra in arquivo.readlines():
+            linhas.append(palavra.strip())
     return linhas
 
 
