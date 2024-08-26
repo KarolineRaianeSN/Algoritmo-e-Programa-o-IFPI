@@ -33,8 +33,7 @@ def menu():
             negativos, qtd = valores_negativos(vetor)
             print(f"Valores negativos: {negativos}, Quantidade: {qtd}")
         elif opcao == 10:
-            menu_atualizar_valores()
-            sub_opcao = pedir_numero_positivo("Escolha uma opção: ")
+            sub_opcao = menu_atualizar_valores()
             if sub_opcao == 1:
                 vetor = multiplicar_valores(vetor, pedir_numero("Informe o multiplicador: "))
             elif sub_opcao == 2:

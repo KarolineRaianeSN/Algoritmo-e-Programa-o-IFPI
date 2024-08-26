@@ -1,6 +1,7 @@
 from utils.utils import *
 from utils.vetor_utils import *
 from utils.vetor_funcionalidades import *
+from utils.menu_atualizar_valores_smart import *
 
 def menu():
 
@@ -21,14 +22,7 @@ def menu():
             7: lambda: print(f"M dia dos valores: {reduce(lambda x, y: x + y, vetor) / len(vetor)}"),
             8: lambda: print(f"Valores positivos: {list(filter(lambda x: x > 0, vetor))}, Quantidade: {len(list(filter(lambda x: x > 0, vetor)))}"),
             9: lambda: print(f"Valores negativos: {list(filter(lambda x: x < 0, vetor))}, Quantidade: {len(list(filter(lambda x: x < 0, vetor)))}"),
-            10: lambda: {
-                1: lambda: list(map(lambda x: x * pedir_numero_positivo("Informe o multiplicador: "), vetor)),
-                2: lambda: list(map(lambda x: x ** pedir_numero_positivo("Informe o expoente: "), vetor)),
-                3: lambda: list(map(lambda x: x * pedir_numero_positivo("Informe a fra o (ex: 0.2 para 1/5): "), vetor)),
-                4: lambda: substituir_negativos(vetor, pedir_numero_positivo("Informe o valor m nimo: "), pedir_numero_positivo("Informe o valor m ximo: ")),
-                5: lambda: sorted(vetor, reverse=bool(int(pedir_numero_positivo("Ordenar em ordem decrescente? (1: Sim, 0: N o): ")))),
-                6: lambda: embaralhar_valores(vetor)
-            }[pedir_numero_positivo("Escolha uma opcao: ")],
+            10: lambda: executar_menu_atualizar_valores(vetor),
             11: lambda: adicionar_valores(vetor, [pedir_numero_positivo("Informe o valor: ") for _ in range(int(pedir_numero_positivo("Quantos valores deseja adicionar? ")))]),
             12: lambda: list(filter(lambda x: x != pedir_numero_positivo("Informe o valor a ser removido: "), vetor)),
             13: lambda: remover_por_posicao(vetor, int(pedir_numero_positivo("Informe a posi o a ser removida: ")) - 1),

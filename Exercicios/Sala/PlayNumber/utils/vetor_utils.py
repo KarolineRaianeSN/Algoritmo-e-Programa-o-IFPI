@@ -2,6 +2,7 @@ from utils.utils import *
 import random
 
 def inicializar_vetor(vetor):
+    vetor.clear()
     opcao = pedir_numero("Escolha o método de inicialização:\n1. Automático\n2. Manual\n3. Carregar de arquivo\nOpção: ")
 
     if opcao == 1:
@@ -12,7 +13,6 @@ def inicializar_vetor(vetor):
         vetor.extend([random.randint(minimo, maximo) for _ in range(tamanho)])
 
     elif opcao == 2:
-        vetor.clear()
         tamanho = pedir_numero_positivo("Informe o tamanho do vetor: ")
         for i in range(tamanho):
             vetor.append(pedir_numero(f"Informe o valor para a posição {i+1}: "))
@@ -25,8 +25,6 @@ def inicializar_vetor(vetor):
 
         except FileNotFoundError:
             print("Arquivo não encontrado.")
-    else:
-        print("Opção inválida.")
     
 
 def adicionar_valores(vetor, novos_valores):

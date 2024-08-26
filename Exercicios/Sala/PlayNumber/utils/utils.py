@@ -41,6 +41,8 @@ def menu_atualizar_valores():
 4. Substituir valores negativos por um número aleatório
 5. Ordenar valores
 6. Embaralhar valores""")
+    return pedir_numero_positivo("Escolha uma opção: ")
+
 
 def pedir_numero(texto):
     return int(input(texto))
