@@ -4,7 +4,8 @@ def mostrar_valores(vetor):
     print("Valores no vetor:", vetor)
 
 def resetar_vetor(vetor, valor_padrao):
-    return [valor_padrao]
+    vetor.clear()
+    vetor.extend([valor_padrao])
 
 def quantidade_itens(vetor):
     return len(vetor)

@@ -27,14 +27,23 @@ def inicializar_vetor(vetor):
             print("Arquivo não encontrado.")
     
 
-def adicionar_valores(vetor, novos_valores):
-    return vetor + novos_valores
+def adicionar_valores(vetor):
+    novos_valores = [pedir_numero("Informe o valor: ") for _ in range(int(pedir_numero("Quantos valores deseja adicionar? ")))]
+    novo_vetor =  vetor + novos_valores
+    vetor.clear()
+    vetor.extend(novo_vetor)
 
-def remover_por_valor(vetor, valor):
-    return [v for v in vetor if v != valor]
+def remover_por_valor(vetor):
+    valor = pedir_numero("Informe o valor a ser removido: ")
+    vetor_novo = [v for v in vetor if v != valor]
+    vetor.clear()
+    vetor.extend(vetor_novo)
 
-def remover_por_posicao(vetor, posicao):
-    return vetor[:posicao] + vetor[posicao+1:]
+def remover_por_posicao(vetor):
+    posicao = int(pedir_numero("Informe a posição a ser removida: ")) - 1
+    novo_vetor = vetor[:posicao] + vetor[posicao+1:]
+    vetor.clear()
+    vetor.extend(novo_vetor)
 
 def editar_valor_por_posicao(vetor, posicao, novo_valor):
     vetor[posicao] = novo_valor

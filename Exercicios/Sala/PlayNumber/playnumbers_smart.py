@@ -2,6 +2,7 @@ from utils.utils import *
 from utils.vetor_utils import *
 from utils.vetor_funcionalidades import *
 from utils.menu_atualizar_valores_smart import *
+from functools import reduce
 
 def menu():
 
@@ -15,7 +16,7 @@ def menu():
         opcoes = {
             1: lambda: inicializar_vetor(vetor),
             2: lambda: mostrar_valores(vetor),
-            3: lambda: resetar_vetor(vetor, pedir_numero_positivo("Informe o valor padr o: ")),
+            3: lambda: resetar_vetor(vetor, pedir_numero("Informe o valor padrão: ")),
             4: lambda: print(f"Quantidade de itens no vetor: {quantidade_itens(vetor)}"),
             5: lambda: print(f"Menor valor: {min(vetor)}, Maior valor: {max(vetor)}"),
             6: lambda: print(f"Somatorio dos valores: {reduce(lambda x, y: x + y, vetor)}"),
@@ -23,10 +24,10 @@ def menu():
             8: lambda: print(f"Valores positivos: {list(filter(lambda x: x > 0, vetor))}, Quantidade: {len(list(filter(lambda x: x > 0, vetor)))}"),
             9: lambda: print(f"Valores negativos: {list(filter(lambda x: x < 0, vetor))}, Quantidade: {len(list(filter(lambda x: x < 0, vetor)))}"),
             10: lambda: executar_menu_atualizar_valores(vetor),
-            11: lambda: adicionar_valores(vetor, [pedir_numero_positivo("Informe o valor: ") for _ in range(int(pedir_numero_positivo("Quantos valores deseja adicionar? ")))]),
-            12: lambda: list(filter(lambda x: x != pedir_numero_positivo("Informe o valor a ser removido: "), vetor)),
-            13: lambda: remover_por_posicao(vetor, int(pedir_numero_positivo("Informe a posi o a ser removida: ")) - 1),
-            14: lambda: editar_valor_por_posicao(vetor, int(pedir_numero_positivo("Informe a posi o a ser editada: ")) - 1, pedir_numero_positivo("Informe o novo valor: ")),
+            11: lambda: adicionar_valores(vetor),
+            12: lambda: remover_por_valor(vetor),
+            13: lambda: remover_por_posicao(vetor),
+            14: lambda: editar_valor_por_posicao(vetor, int(pedir_numero_positivo("Informe a posi o a ser editada: ")) - 1, pedir_numero("Informe o novo valor: ")),
             15: lambda: salvar_em_arquivo_txt(vetor, input("Informe o nome do arquivo para salvar (ex: valores.txt): ")),
             16: lambda: (salvar_em_arquivo_txt(vetor, 'valores_salvos.txt'), print("Vetor salvo e programa encerrado."))
         }

@@ -46,8 +46,8 @@ def elevar_a_valor(vetor):
     vetor[:] = [x ** expoente for x in vetor]
 
 def reduzir_a_fracao(vetor):
-    fracao = pedir_numero_positivo("Informe a fração (ex: 0.2 para 1/5): ")
-    vetor[:] = [x * fracao for x in vetor]
+    fracao = float(input(("Informe a fração (ex: 0.2 para 1/5): ")))
+    vetor[:] = [x * float(fracao) for x in vetor]
 
 def substituir_negativos_por_aleatorio(vetor):
     minimo = pedir_numero_positivo("Informe o valor mínimo: ")
@@ -55,8 +55,9 @@ def substituir_negativos_por_aleatorio(vetor):
     vetor[:] = [x if x >= 0 else random.uniform(minimo, maximo) for x in vetor]
 
 def ordenar_valores(vetor):
-    decrescente = bool(int(pedir_numero_positivo("Ordenar em ordem decrescente? (1: Sim, 0: Não): ")))
+    decrescente = bool(int(pedir_numero("Ordenar em ordem decrescente? (1: Sim, 0: Não): ")))
     vetor[:] = sorted(vetor, reverse=decrescente)
+
 
 def embaralhar_valores(vetor):
     random.shuffle(vetor)

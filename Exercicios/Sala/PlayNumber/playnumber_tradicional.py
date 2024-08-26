@@ -16,7 +16,7 @@ def menu():
         elif opcao == 2:
             mostrar_valores(vetor)
         elif opcao == 3:
-            vetor = resetar_vetor(vetor, pedir_numero("Informe o valor padrão: "))
+            resetar_vetor(vetor, pedir_numero("Informe o valor padrão: "))
         elif opcao == 4:
             print(f"Quantidade de itens no vetor: {quantidade_itens(vetor)}")
         elif opcao == 5:
@@ -39,7 +39,7 @@ def menu():
             elif sub_opcao == 2:
                 vetor = elevar_valores(vetor, pedir_numero("Informe o expoente: "))
             elif sub_opcao == 3:
-                vetor = reduzir_por_fracao(vetor, pedir_numero("Informe a fração (ex: 0.2 para 1/5): "))
+                vetor = reduzir_por_fracao(vetor, float(input("Informe a fração (ex: 0.2 para 1/5): ")))
             elif sub_opcao == 4:
                 min_val = pedir_numero("Informe o valor mínimo: ")
                 max_val = pedir_numero("Informe o valor máximo: ")
@@ -50,12 +50,11 @@ def menu():
             elif sub_opcao == 6:
                 vetor = embaralhar_valores(vetor)
         elif opcao == 11:
-            novos_valores = [pedir_numero("Informe o valor: ") for _ in range(int(pedir_numero("Quantos valores deseja adicionar? ")))]
-            vetor = adicionar_valores(vetor, novos_valores)
+            adicionar_valores(vetor)
         elif opcao == 12:
-            vetor = remover_por_valor(vetor, pedir_numero("Informe o valor a ser removido: "))
+            remover_por_valor(vetor)
         elif opcao == 13:
-            vetor = remover_por_posicao(vetor, int(pedir_numero("Informe a posição a ser removida: ")) - 1)
+            remover_por_posicao(vetor)
         elif opcao == 14:
             posicao = int(pedir_numero("Informe a posição a ser editada: ")) - 1
             novo_valor = pedir_numero("Informe o novo valor: ")

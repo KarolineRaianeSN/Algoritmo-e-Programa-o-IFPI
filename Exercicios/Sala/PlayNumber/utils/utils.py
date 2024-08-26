@@ -4,7 +4,7 @@ import platform
 
 def mostrar_menu():
     print("""
-================== PLAYWORDS ===================
+---------------- PLAYNUMBER ------------------
 1  - Inicializar vetor
 2  - Mostrar valores do vetor
 3  - Resetar valor
@@ -21,7 +21,8 @@ def mostrar_menu():
 14 - Editar valor específico por posição
 15 - Salvar valores em arquivo
 
-0 - Sair""")
+0 - Sair
+--------------------------------------------""")
 
 
 def menu_iniciar_vetor():
