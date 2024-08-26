@@ -12,7 +12,7 @@ def menu():
         limpar_tela()
         
         if opcao == 1:
-            inicializar_vetor()
+            inicializar_vetor(vetor)
         elif opcao == 2:
             mostrar_valores(vetor)
         elif opcao == 3:

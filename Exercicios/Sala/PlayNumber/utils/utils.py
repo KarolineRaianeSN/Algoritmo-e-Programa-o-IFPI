@@ -47,7 +47,7 @@ def pedir_numero(texto):
 
 
 def pedir_numero_positivo(texto):
-    numero = float(input(texto))
+    numero = int(input(texto))
     while numero <= 0:
         print("Informe um número positivo.")
         numero = float(input(texto))

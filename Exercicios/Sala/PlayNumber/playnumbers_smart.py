@@ -12,7 +12,7 @@ def menu():
     while opcao != 0:
         limpar_tela()
         opcoes = {
-            1: lambda: inicializar_vetor(),
+            1: lambda: inicializar_vetor(vetor),
             2: lambda: mostrar_valores(vetor),
             3: lambda: resetar_vetor(vetor, pedir_numero_positivo("Informe o valor padr o: ")),
             4: lambda: print(f"Quantidade de itens no vetor: {quantidade_itens(vetor)}"),
@@ -41,6 +41,7 @@ def menu():
             opcoes[opcao]()
         else:
             print("Opção inválida!")
+
         
         input("\nPressione Enter para continuar...")
         limpar_tela()
