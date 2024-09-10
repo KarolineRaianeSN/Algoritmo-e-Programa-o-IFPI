@@ -16,7 +16,7 @@ def executar_menu_atualizar_valores(vetor):
 """)
         opcao_submenu = pedir_numero("Escolha uma opção: ")
 
-        if opcao_submenu < 0 or opcao_submenu > 6:  # Verificar se a opção é inválida
+        if opcao_submenu < 0 or opcao_submenu > 6:
             print("Opção inválida no submenu de atualização!")
             input("\nPressione Enter para continuar...")
         else:

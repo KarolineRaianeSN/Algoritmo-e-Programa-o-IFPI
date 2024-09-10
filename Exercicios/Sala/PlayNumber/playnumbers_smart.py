@@ -29,7 +29,7 @@ def menu():
             13: lambda: remover_por_posicao(vetor),
             14: lambda: editar_valor_por_posicao(vetor, int(pedir_numero_positivo("Informe a posi o a ser editada: ")) - 1, pedir_numero("Informe o novo valor: ")),
             15: lambda: salvar_em_arquivo_txt(vetor, input("Informe o nome do arquivo para salvar (ex: valores.txt): ")),
-            16: lambda: (salvar_em_arquivo_txt(vetor, 'valores_salvos.txt'), print("Vetor salvo e programa encerrado."))
+            16: lambda: (salvar_em_arquivo_txt(vetor, 'valores_salvos.txt')),
         }
 
         if opcao in opcoes:
