@@ -48,33 +48,24 @@ Escolha uma opção: """
 
 
 def avoids(palavras, proibidas):
-    lista = []
     for palavra in palavras:
-        for letra in proibidas:
-            if letra not in palavra:
-                lista.append(palavra)
+        lista = [for letra in palavra if letra not in proibidas]
 
     return lista
 
 
 def listar_palavras_sem_e(palavras):
-    lista = []
-    for palavra in palavras:
-        if has_no_e(palavra):
-            lista.append(palavra)
+    lista = [palavra for palavra in palavras if has_no_e("e", palavra)]
 
-    return lista
+    return lista 
 
 
-def has_no_e(palavra):
-    return 'e' not in palavra
+def has_no_e(letra, palavra):
+    return letra not in palavra
 
 
 def mais_20_letras(palavras):
-    lista = []
-    for palavra in palavras:
-        if len(palavra) > 20:
-            lista.append(palavra)
+    lista = [for palavra in palavras if len(palavra) > 20]
 
     return lista
 
