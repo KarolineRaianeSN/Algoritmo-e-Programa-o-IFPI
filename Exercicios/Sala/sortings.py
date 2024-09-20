@@ -33,6 +33,48 @@ def selectionSort(lista):
             lista[i], lista[menor] = lista[menor], lista[i]
 
     return lista
+
+def busca_sequencial(lista, valor):
+    for i in range(len(lista)):
+        if lista[i] == valor:
+            return i  # Retorna o índice onde o valor foi encontrado
+    return -1  # Retorna -1 se o valor não for encontrado
+
+# Exemplo de uso
+lista = [10, 23, 45, 70, 11, 15]
+resultado = busca_sequencial(lista, 70)  # Retorna 3
+print(resultado)
+
+
+def busca_binaria(lista, valor):
+    esquerda = 0
+    direita = len(lista) - 1
+    
+    while esquerda <= direita:
+        meio = (esquerda + direita) // 2  # Encontra o elemento do meio
+        
+        # Verifica se o valor está no meio
+        if lista[meio] == valor:
+            return meio
+        
+        # Se o valor procurado for menor, busca na metade esquerda
+        elif lista[meio] > valor:
+            direita = meio - 1
+        
+        # Se o valor procurado for maior, busca na metade direita
+        else:
+            esquerda = meio + 1
+    
+    return -1  # Retorna -1 se o valor não for encontrado
+
+# Exemplo de uso
+lista = [10, 23, 45, 70, 89, 95]
+resultado = busca_binaria(lista, 70)  # Retorna 3
+print(resultado)
+
+
+
+
 def main():
     lista_bagunçada = [1,123,4,2,33,42,78]
     print(bubbleSort(lista_bagunçada))
