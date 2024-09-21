@@ -1,64 +1,62 @@
-from utils.menus import *
+from modelos import modelos
+from montadoras import montadoras
+import pprint
 from utils.funcionalidades import *
-from utils.funcionalidades_montadoras import *
+from utils.funcionalidades_veiculos import *
+from utils.menus import *
+from utils.ulid import gerar_ulid
 
-def montadoras():
-    montadoras = [
-        {
-        'id': '123',
-        'nome': 'Toyota',
-        'pais': 'Japão',
-        'ano_fundacao': 1937
-    }
-    ]
 
-    opcao = input(menu_montadoras())
+def veiculos():
+    veiculos = []
+
+    opcao = input(menu_veiculos())
 
     while opcao != "0":
         limpar_tela()
 
         match opcao:
             case "1":
-                adicionar_montadora(montadoras)
+                adicionar_veiculo(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "2":
-                listar_montadoras(montadoras)
+                contar_veiculos(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "3":
-                encontrar_montadora(montadoras)
+                encontrar_veiculo(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "4":
-                atualizar_montadora(montadoras)
+                atualizar_veiculo(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "5":
-                remover_montadora(montadoras)
+                remover_veiculo(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "6":
-                carregar_montadoras()
+                carregar_veiculos()
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case "7":
-                gravar_montadoras(montadoras)
+                gravar_veiculos(veiculos)
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
+                opcao = input(menu_veiculos())
             case _:
                 print("Opcão inválida")
                 input("Press Enter to continue...")
                 limpar_tela()
-                opcao = input(menu_montadoras())
-    
+                opcao = input(menu_veiculos())
+
 
 if __name__ == "__main__":
-    montadoras()
+    veiculos()

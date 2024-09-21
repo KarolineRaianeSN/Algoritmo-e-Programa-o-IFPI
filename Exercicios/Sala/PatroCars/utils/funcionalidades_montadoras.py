@@ -29,6 +29,8 @@ def listar_montadoras(montadoras: list):
     for montadora in montadoras_ordenadas:
         pprint.pprint(montadora)
 
+    print(f"Status: {len(montadoras)} montadoras cadastradas")
+
 
 def remover_montadora(montadoras):
     """Lista montadoras e depois remove com base no ID"""
@@ -139,7 +141,9 @@ def ordenar_montadoras(montadoras):
     return ordenar_lista(montadoras, ordenar_por, direcao)
 
 
-def carregar_montadoras(arquivo):
+def carregar_montadoras():
+    arquivo = input("Nome do arquivo(ex: montadoras.txt): ")
+
     with open(arquivo, 'r') as arquivo:
         chaves = ["nome", "pais", "ano_fundacao"]
 
