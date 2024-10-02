@@ -1,56 +1,61 @@
-from utils import *
-from montadoras import montadoras
-from modelos import modelos
+from utils.funcionalidades import *
+from utils.menus import *
+from utils.ulid import gerar_ulid 
+from montadoras import lista_montadoras
+from modelos import lista_modelos
 import pprint
+
 
 def adicionar_veiculo(veiculos: list):
     """Lista montadoras e modelos e pede ao usuários para escolher montadora e modelo, pede os dados e adiciona na lista"""
 
     limpar_tela()
 
-    if not montadoras:
+    if not lista_montadoras:
         print("Nenhuma montadora cadastrada. Cadastre uma montadora primeiro.")
-        return
+        return 
     
-    if not modelos:
+    if not lista_modelos:
         print("Nenhum modelo cadastrado. Cadastre um modelo primeiro.")
         return
     
     print("=================== MONTADORAS CADASTRADAS ===================")
-    for i, montadora in enumerate(montadoras):
+    for i, montadora in enumerate(lista_montadoras):
         print(f"{i + 1}. {montadora['nome']}")
     
     escolha = int(input("Digite o número da montadora: ")) - 1
-    montadora_selecionada = montadoras[escolha]
+    montadora_selecionada = lista_montadoras[escolha]
 
     print("=================== MODELOS CADASTRADOS ===================")
-    for i, modelo in enumerate(modelos):
+    for i, modelo in enumerate(lista_modelos):
         print(f"{i + 1}. {modelo['nome']}")
 
     escolha = int(input("Digite o número do modelo: ")) - 1
-    modelo_selecionado = modelos[escolha]
+    modelo_selecionado = lista_modelos[escolha]
 
-    nome = input("Nome do veículo: ")
-    ano = int(input("Ano: "))
 
     # (id: ULID, modelo_id: string, cor: string, ano_fabricacao: number, ano_modelo: number, valor: number, placa: string, vendido: boolean)
 
     nome = input("Nome do veículo: ")
+    cor = input("Cor: ")
     ano_fabricacao = int(input("Ano de fabricação: "))
     ano_modelo = int(input("Ano do modelo: "))
+    valor = float(input("Valor: "))
     placa = input("Placa: ")
-    vendido = bool(input("Vendido (1: sim | 2: nao): "))
+    vendido = bool(int(input("Vendido (1: sim | 0: nao): ")))
     
     veiculos.append({
         'id': gerar_ulid(),
         'montadora': montadora_selecionada,
         'modelo': modelo_selecionado,
         'nome': nome,
+        'cor': cor,
         'ano_fabricacao': ano_fabricacao,
         'ano_modelo': ano_modelo,
-        'valor': modelo_selecionado,['valor_referencia']: valor,
+        'valor': valor,
+        'valor_referencia': valor_modelo,
         'placa': placa,
-        'vendido': False
+        'vendido': vendido
     })
 
     print("Veículo adicionado com sucesso!")
@@ -71,7 +76,7 @@ def listar_veiculos(veiculos):
     print(f"Status: {len(veiculos)} veículos")
 
 
-def ordenar_veiculos(veiculos):
+def ordenar_veiculos(veiculos: list):
     """Ordena veiculos de acordo com critério escolhido"""
 
     if not veiculos:
@@ -92,40 +97,64 @@ def ordenar_veiculos(veiculos):
     return ordenar_lista(veiculos, ordenar_por, direcao)
 
 
-def encontrar_veiculos(veiculos):
+def encontrar_veiculos(veiculos) -> list:
     """Encontra veículo e imprime na tela"""
 
-    opcao = input(filtros_veiculos())
+    if not veiculos:
+        print("Nenhum veículo cadastrado.")
+        return veiculos
+
+    opcao = input(filtros_veiculos())  # Exibe os filtros disponíveis
 
     match opcao:
         case "1":
-            nome = input("Nome do veículo: ")
-            filtro = lambda veiculo: nome in veiculo["nome"]
+            limpar_tela()
+            for veiculo in veiculos:
+                print(veiculo["nome"])
+
+            nome = input("Nome do veículo: ").strip().lower()
+            filtro = lambda veiculo: nome in veiculo.get("nome", "").strip().lower()
         case "2":
-            montadora_id = input("ID da montadora: ")
-            filtro = lambda veiculo: montadora_id in veiculo["montadora"]
+            for montadora in lista_montadoras:
+                print(montadora["nome"])
+            montadora = input("Montadora do veículo: ").strip().lower()
+            # Verifica se montadora é uma string ou um dicionário
+            filtro = lambda veiculo: montadora in (
+                veiculo.get("montadora", {}).get("nome", "").strip().lower() if isinstance(veiculo.get("montadora"), dict)
+                else veiculo.get("montadora", "").strip().lower()
+            )
         case "3":
-            modelo_id = input("ID do modelo: ")
-            filtro = lambda veiculo: modelo_id in veiculo["modelo"]
+            modelo = input("Modelo do veículo: ").strip().lower()
+            filtro = lambda veiculo: modelo in veiculo.get("modelo", {}).get("nome", "").strip().lower()
         case "4":
-            ano_fabricacao = input("Ano de fabricação: ")
-            filtro = lambda veiculo: ano_fabricacao in veiculo["ano_fabricacao"]
+            ano_fabricacao = input("Ano de fabricação: ").strip()
+            filtro = lambda veiculo: str(veiculo.get("ano_fabricacao", "")).strip() == ano_fabricacao
         case "5":
-            ano_modelo = input("Ano de modelo: ")
-            filtro = lambda veiculo: ano_modelo in veiculo["ano_modelo"]
+            ano_modelo = input("Ano de modelo: ").strip()
+            filtro = lambda veiculo: str(veiculo.get("ano_modelo", "")).strip() == ano_modelo
         case "6":
-            placa = input("Placa: ")
-            filtro = lambda veiculo: placa in veiculo["placa"]
+            placa = input("Placa do veículo: ").strip().lower()
+            filtro = lambda veiculo: veiculo.get("placa", "").strip().lower() == placa
         case "7":
-            vendido = input("Vendido (1: sim | 2: nao): ")
-            filtro = lambda veiculo: vendido in veiculo["vendido"]
+            vendido = input("Vendido (1: sim | 2: nao): ").strip()
+            vendido_bool = vendido == '1'
+            filtro = lambda veiculo: veiculo.get("vendido", False) == vendido_bool
+        case "0":
+            limpar_tela()
+            return
         case _:
-            print("Opcão inválida")
-            return encontrar_veiculos(veiculos)
-        
+            print("Opção inválida")
+            return
+
     veiculos_encontrados = list(filter(filtro, veiculos))
 
-    return listar_veiculos(veiculos_encontrados)
+    if veiculos_encontrados:
+        listar_veiculos(veiculos_encontrados)
+    else:
+        print("Nenhum veículo encontrado.")
+
+
+
 
 
 def atualizar_veiculos(veiculos):
@@ -135,73 +164,72 @@ def atualizar_veiculos(veiculos):
         print("Nenhum veículo cadastrado.")
         return veiculos
 
+    # Encontra veículos com base nos critérios do usuário
     veiculos_encontrados = encontrar_veiculos(veiculos)
 
     if not veiculos_encontrados:
         print("Nenhum veículo encontrado.")
-        return veiculos
+        return veiculos  # Não modifica a lista original se não encontrar veículos
 
     opcao = input(menu_atualizar_veiculos(veiculos_encontrados))
 
+    # Verifica se o usuário deseja realmente atualizar algo
+    if opcao == "0":
+        return veiculos  # Sai sem modificar a lista
+
+    # Atualiza de acordo com a opção do usuário
     match opcao:
         case "1":
-            nome = input("Nome atual do veículo: ")
-            novo_nome = input("Novo nome do veículo: ")
+            nome_atual = input("Nome atual do veículo: ").strip().lower()
+            novo_nome = input("Novo nome do veículo: ").strip().lower()
             for veiculo in veiculos_encontrados:
-                if veiculo["nome"] == nome:
+                if nome_atual == veiculo["nome"].strip().lower():
                     veiculo["nome"] = novo_nome
-
         case "2":
-            modelo = input("Modelo atual do veículo: ")
-            novo_modelo = input("Novo modelo do veículo: ")
+            modelo_atual = input("Modelo atual do veículo: ").strip().lower()
+            novo_modelo = input("Novo modelo do veículo: ").strip().lower()
             for veiculo in veiculos_encontrados:
-                if veiculo["modelo"] == modelo:
-                    veiculo["modelo"] = novo_modelo
-
+                if modelo_atual == veiculo["modelo"]["nome"].strip().lower():
+                    veiculo["modelo"]["nome"] = novo_modelo
         case "3":
-            cor = input("Cor atual do veículo: ")
-            nova_cor = input("Nova cor do veículo: ")
+            cor_atual = input("Cor atual do veículo: ").strip().lower()
+            nova_cor = input("Nova cor do veículo: ").strip().lower()
             for veiculo in veiculos_encontrados:
-                if veiculo["cor"] == cor:
+                if cor_atual == veiculo["cor"].strip().lower():
                     veiculo["cor"] = nova_cor
-
         case "4":
-            ano_fabricacao = input("Ano de fabricação atual do veículo: ")
-            novo_ano_fabricacao = input("Novo ano de fabricação do veículo: ")
+            ano_fabricacao_atual = int(input("Ano de fabricação atual do veículo: "))
+            novo_ano_fabricacao = int(input("Novo ano de fabricação do veículo: "))
             for veiculo in veiculos_encontrados:
-                if veiculo["ano_fabricacao"] == ano_fabricacao:
+                if ano_fabricacao_atual == veiculo["ano_fabricacao"]:
                     veiculo["ano_fabricacao"] = novo_ano_fabricacao
-
         case "5":
-            ano_modelo = input("Ano de modelo atual do veículo: ")
-            novo_ano_modelo = input("Novo ano de modelo do veículo: ")
+            ano_modelo_atual = int(input("Ano de modelo atual do veículo: "))
+            novo_ano_modelo = int(input("Novo ano de modelo do veículo: "))
             for veiculo in veiculos_encontrados:
-                if veiculo["ano_modelo"] == ano_modelo:
+                if ano_modelo_atual == veiculo["ano_modelo"]:
                     veiculo["ano_modelo"] = novo_ano_modelo
-
         case "6":
-            placa = input("Placa atual do veículo: ")
-            nova_placa = input("Nova placa do veículo: ")
+            placa_atual = input("Placa atual do veículo: ").strip().lower()
+            nova_placa = input("Nova placa do veículo: ").strip().lower()
             for veiculo in veiculos_encontrados:
-                if veiculo["placa"] == placa:
+                if placa_atual == veiculo["placa"].strip().lower():
                     veiculo["placa"] = nova_placa
-
         case "7":
-            vendido = input("Vendido atual do veículo (1: sim | 2: nao): ")
-            novo_vendido = input("Novo vendido do veículo (1: sim | 2: nao): ")
+            vendido_atual = input("Vendido atual do veículo (1: sim | 2: nao): ")
+            novo_vendido = input("Novo status (1: sim | 2: nao): ")
             for veiculo in veiculos_encontrados:
-                if veiculo["vendido"] == vendido:
-                    veiculo["vendido"] = novo_vendido
-
-        case "0":
-            opcao = input(menu_veiculos())
-
+                veiculo["vendido"] = True if novo_vendido == "1" else False
         case _:
             print("Opcão inválida")
             return atualizar_veiculos(veiculos)
 
+    print("Veículo(s) atualizado(s) com sucesso!")
+    return veiculos  # Retorna a lista atualizada
 
-def remover_veiculos(veiculos):
+
+
+def remover_veiculos(veiculos: list):
     """Remove veículo de acordo com id do veículo"""
 
     if not veiculos:
@@ -210,30 +238,40 @@ def remover_veiculos(veiculos):
 
     listar_veiculos(veiculos)
 
-    id_veiculo = input("ID do veículo: ")
-    vetor_novo = [veiculo for veiculo in veiculos if veiculo["id"] != id_veiculo]
-    
-    veiculos.clear()
-    veiculos.extend(vetor_novo)
+    id_veiculo = input("ID do veículo: ").strip()
+
+    # Verifica se algum veículo foi removido
+    veiculos_filtrados = [veiculo for veiculo in veiculos if veiculo["id"] != id_veiculo]
+
+    if len(veiculos_filtrados) == len(veiculos):
+        print("Veículo com o ID informado não foi encontrado.")
+    else:
+        veiculos[:] = veiculos_filtrados  # Atribuição direta à lista original
+        print("Veículo removido com sucesso.")
+
+    return veiculos
 
 
-def carregar_veiculos():
+
+def carregar_veiculos(veiculos):
     """Carrega veículos de um arquivo"""
 
     arquivo = input("Nome do arquivo: ")
 
-    with open(arquivo, "r") as arquivo:
-        chaves = ["id", "nome", "modelo", "cor", "ano_fabricacao", "ano_modelo", "placa", "vendido"]
+    try:
+        with open(arquivo, "r") as arquivo:
+            chaves = ['id', 'montadora', 'modelo', 'nome', 'cor', 'ano_fabricacao', 'ano_modelo', 'valor', 'valor_referencia', 'placa', 'vendido']
 
-        dados = []
+            veiculos.clear()  # Clear the list here
 
-        for linha in arquivo:
-            dados.append({chave: valor for chave, valor in zip(chaves, linha.strip().split(";"))})
+            for linha in arquivo:
+                veiculos.append(dict(zip(chaves, linha.strip().split(';'))))
 
-        return dados
+    except FileNotFoundError:
+        print("Arquivo não encontrado.")
+        return carregar_veiculos()
 
-
-def gravar_veiculos():
+def gravar_veiculos(veiculos: list):
     """Grava veículos em um arquivo"""
 
     arquivo = input("Nome do arquivo: ")

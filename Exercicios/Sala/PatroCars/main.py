@@ -1,6 +1,6 @@
-from veiculos import veiculos
-from modelos import modelos
-from montadoras import montadoras
+from veiculos import veiculos_v3
+from modelos import modelos_v2
+from montadoras import montadoras_v1
 from utils.funcionalidades import *
 from utils.funcionalidades_modelos import *
 from utils.funcionalidades_montadoras import *
@@ -15,13 +15,13 @@ def main():
         match opcao:
             case '1':
                 limpar_tela()
-                montadoras()
+                montadoras_v1()
             case '2':
                 limpar_tela()
-                modelos()
+                modelos_v2()
             case '3':
                 limpar_tela()
-                veiculos()
+                veiculos_v3()
             case _:
                 print("Opção inválida. Tente novamente.")
 

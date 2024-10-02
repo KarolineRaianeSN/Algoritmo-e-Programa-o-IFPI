@@ -2,7 +2,7 @@ from utils.ulid import gerar_ulid
 from utils.funcionalidades import *
 from utils.menus import *
 from utils.funcionalidades_montadoras import *
-from montadoras import montadoras
+from montadoras import lista_montadoras
 import pprint
 
 
@@ -10,16 +10,16 @@ def adicionar_modelo(modelos: list):
     """Lista montadoras, pede ao usuário para escolher, pede os dados e adiciona na lista"""
     limpar_tela()
 
-    if not montadoras:
+    if not lista_montadoras:
         print("Nenhuma montadora cadastrada. Cadastre uma montadora primeiro.")
         return
     
     print("=================== MONTADORAS CADASTRADAS ===================")
-    for i, montadora in enumerate(montadoras):
+    for i, montadora in enumerate(lista_montadoras):
         print(f"{i + 1}. {montadora['nome']}")
     
     escolha = int(input("Digite o número da montadora: ")) - 1
-    montadora_selecionada = montadoras[escolha]
+    montadora_selecionada = lista_montadoras[escolha]
 
     nome = input("Nome do modelo: ")
     valor_referencia = float(input("Valor de referência: "))
@@ -191,7 +191,7 @@ def atualizar_modelos(veiculos):
             print("Opcão inválida")
             opcao = input(menu_modelos())
 
-def carregar_modelos():
+def carregar_modelos(veiculos):
     """Carrega veículos do arquivo"""
     arquivo = input("Nome do arquivo: ")
 
@@ -203,7 +203,10 @@ def carregar_modelos():
         for linha in arquivo:
             dados.append({chave: valor for chave, valor in zip(chaves, linha.strip().split(","))})
 
-        return dados
+    veiculos.clear()
+    veiculos.extend(dados)
+
+    return veiculos
     
 
 def gravar_modelos(veiculos):
@@ -228,4 +231,3 @@ def remover_modelo(modelos):
     modelos.extend(vetor_novo)
 
     return modelos
-

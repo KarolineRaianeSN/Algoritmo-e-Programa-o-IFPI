@@ -1,23 +1,38 @@
 from utils.funcionalidades_modelos import *
 from utils.menus import *
 from utils.funcionalidades import *
-from montadoras import montadoras
+from montadoras import lista_montadoras
 import pprint
 
-def modelos():
-    modelos = [
-    [
+global modelos
+
+lista_modelos = [
     {
-        'id': 'D8K7L9W0P2Q3S4F6A1G2B5C3E4',
-        'montadora': '123',
         'nome': 'Corolla',
+        'montadora': 'Toyota',
         'valor_referencia': 120000.0,
-        'motorizacao': 1.8,
+        'motoracao': '1.8L',
+        'turbo': False,
+        'automatico': True
+    },
+    {
+        'nome': 'Civic',
+        'montadora': 'Honda',
+        'valor_referencia': 110000.0,
+        'motoracao': '2.0L',
+        'turbo': True,
+        'automatico': False
+    },
+    {
+        'nome': 'Golf',
+        'montadora': 'Volkswagen',
+        'valor_referencia': 100000.0,
+        'motoracao': '1.6L',
         'turbo': False,
         'automatico': True
     }
 ]
-]
+def modelos_v2():
 
     opcao = input(menu_modelos())
 
@@ -26,27 +41,27 @@ def modelos():
 
         match opcao:
             case "1":
-                adicionar_modelo(modelos)
+                adicionar_modelo(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
             case "2":
-                listar_modelos(modelos)
+                listar_modelos(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
             case "3":
-                encontrar_modelos(modelos)
+                encontrar_modelos(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
             case "4":
-                atualizar_modelos(modelos)
+                atualizar_modelos(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
             case "5":
-                remover_modelo(modelos)
+                remover_modelo(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
@@ -56,7 +71,7 @@ def modelos():
                 limpar_tela()
                 opcao = input(menu_modelos())
             case "7":
-                gravar_modelos(modelos)
+                gravar_modelos(lista_modelos)
                 input("Press Enter to continue...")
                 limpar_tela()
                 opcao = input(menu_modelos())
@@ -67,4 +82,4 @@ def modelos():
                 opcao = input(menu_modelos())
 
 if __name__ == "__main__":
-    modelos()
+    modelos_v2()
